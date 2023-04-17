@@ -1,0 +1,39 @@
+--Create database for a liquor store
+CREATE TABLE store (
+sku INTEGER PRIMARY KEY,
+type TEXT,
+brand TEXT,
+price INTEGER,
+quantity INTEGER
+);
+
+INSERT INTO store VALUES (123, "Vodka", "Smirnoff", 16.00, 3);
+INSERT INTO store VALUES (124, "Vodka", "Absolut", 17.00, 2);
+INSERT INTO store VALUES (125, "Vodka", "Tito's", 16.50, 6);
+INSERT INTO store VALUES (126, "Rum", "Bacardi", 18.00, 14);
+INSERT INTO store VALUES (127, "Rum", "Captain Morgan", 19.00, 7);
+INSERT INTO store VALUES (128, "Schnapps", "Rumple Minze", 25.00, 4);
+INSERT INTO store VALUES (129, "Vodka", "Stolichnaya", 18.00, 8);
+INSERT INTO store VALUES (130, "Whiskey", "Jameson", 20.00, 6);
+INSERT INTO store VALUES (131, "Whiskey", "Maker's Mark", 29.00, 4);
+INSERT INTO store VALUES (132, "Beer", "Guinness", 24.00, 9);
+INSERT INTO store VALUES (133, "Vodka", "Grey Goose", 22.00, 12);
+INSERT INTO store VALUES (134, "Schnapps", "Paramount", 8.00, 5);
+INSERT INTO store VALUES (135, "Gin", "Bombay Sapphire", 35.00, 8);
+INSERT INTO store VALUES (136, "Gin", "Tanqueray", 30.00, 2);
+INSERT INTO store VALUES (137, "Beer", "Fat Tire", 23.00, 8);
+
+--Display all database entries ordered by price
+SELECT * FROM store
+ORDER BY price;
+
+--Find the minimnum, maximum, and average price for each type of alcohol sold, from most to least expensive 
+SELECT type, MIN(price), MAX(price), AVG(price) FROM store
+GROUP BY type
+ORDER BY AVG(price) DESC;
+
+--Calculate how many items are in stock for each type of alcohol sold, from most to least in stock
+SELECT type, SUM(quantity) FROM store GROUP BY type ORDER BY SUM(quantity) DESC;
+
+--Display all items that cost between 10 and 20 dollars
+SELECT * FROM store WHERE price > '10.00' AND price < '20.00' ORDER BY price;
