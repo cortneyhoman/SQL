@@ -121,9 +121,27 @@ INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,co
 
 /*Which payment types are most popular per country? Sorted by country and by number of orders per payment type.*/
 SELECT
-COUNT(payment_type) AS "Number of Orders",
+COUNT(payment_type) AS number_of_orders,
 payment_type,
 country
 FROM sales
 GROUP BY payment_type, country
-ORDER BY country, "Number of Orders";
+ORDER BY country, number_of_orders;
+
+/*Which countries have we received at least 5 orders from?*/
+SELECT
+COUNT(country) AS number_of_orders,
+country
+FROM sales
+GROUP BY country
+HAVING number_of_orders > 5
+ORDER BY number_of_orders DESC;
+
+/*List the unit price, number of items sold, and total sales per product type.*/
+SELECT
+product,
+price as unit_price,
+COUNT(*) as number_sold,
+SUM(price) as total_sales
+FROM sales
+GROUP BY product;
