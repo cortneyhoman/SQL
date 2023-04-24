@@ -4,7 +4,7 @@ Collected by: https://www.khanacademy.org/profile/charlesb2000/
 */
 CREATE TABLE sales(
   ID INTEGER  NOT NULL PRIMARY KEY
-, transaction_date TEXT
+, transaction_date text
 , product TEXT
 , price INTEGER
 , payment_type TEXT
@@ -12,8 +12,8 @@ CREATE TABLE sales(
 , city TEXT
 , state TEXT
 , country TEXT
-, account_created TEXT
-, last_login TEXT
+, account_created text
+, last_login text
 , latitude REAL
 , longitude REAL
 );
@@ -145,3 +145,9 @@ COUNT(*) as number_sold,
 SUM(price) as total_sales
 FROM sales
 GROUP BY product;
+
+/*How many accounts that made purchases were created in 2009?*/
+SELECT 
+COUNT(*)
+FROM sales
+WHERE account_created LIKE "%/09%";
