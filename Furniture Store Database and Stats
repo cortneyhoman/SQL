@@ -130,7 +130,7 @@ ORDER BY country, number_of_orders;
 
 /*Which countries have we received at least 5 orders from?*/
 SELECT
-COUNT(country) AS number_of_orders,
+COUNT(*) AS number_of_orders,
 country
 FROM sales
 GROUP BY country
@@ -151,3 +151,21 @@ SELECT
 COUNT(*)
 FROM sales
 WHERE account_created LIKE "%/09%";
+
+/*How many couches were purchased with a Visa card by users located in the United States?*/
+SELECT COUNT(*) 
+FROM sales
+WHERE product = "Couch" AND payment_type = "Visa" AND country = "United states";
+
+/*Categorize purchases by either Western or Eastern Hemisphere*/
+SELECT *,
+CASE
+    WHEN country = "United States" THEN "Western Hemisphere"
+    WHEN country = "Canada" THEN "Western Hemisphere"
+    WHEN country = "France" THEN "Western Hemisphere"
+    WHEN country = "Spain" THEN "Western Hemisphere" 
+    WHEN country = "United Kingdom" THEN "Western Hemisphere"
+    WHEN country = "Ireland" THEN "Western Hemisphere"
+    ELSE "Eastern Hemisphere"
+END AS "Hemisphere"
+FROM sales;
