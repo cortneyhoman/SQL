@@ -1,0 +1,45 @@
+CREATE TABLE wes_anderson_actors (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  movie_title TEXT,
+  movie_year INT,
+  talent_name TEXT,
+  birth_year INT,
+  birth_month TEXT,
+  birth_day INT,
+  birth_location TEXT,
+  spouse_name TEXT
+);
+
+INSERT INTO wes_anderson_actors (movie_title, movie_year, talent_name, birth_year, birth_month, birth_day, birth_location, spouse_name)
+VALUES
+  ('Bottle Rocket', 1996, 'Luke Wilson', 1971, 'September', 21, 'Dallas, Texas, USA', '-'),
+  ('Bottle Rocket', 1996, 'Owen Wilson', 1968, 'November', 18, 'Dallas, Texas, USA', 'Varunie Vongsvirates'),
+  ('Bottle Rocket', 1996, 'James Caan', 1940, 'March', 26, 'The Bronx, New York, USA', 'Linda Stokes'),
+  ('Rushmore', 1998, 'Jason Schwartzman', 1980, 'June', 26, 'Los Angeles, California, USA', 'Brady Cunningham'),
+  ('Rushmore', 1998, 'Bill Murray', 1950, 'September', 21, 'Evanston, Illinois, USA', 'Jennifer Butler'),
+  ('Rushmore', 1998, 'Olivia Williams', 1968, 'July', 26, 'Camden Town, London, England', 'Rhashan Stone'),
+  ('The Royal Tenenbaums', 2001, 'Gene Hackman', 1930, 'January', 30, 'San Bernardino, California, USA', 'Betsy Arakawa'),
+  ('The Royal Tenenbaums', 2001, 'Anjelica Huston', 1951, 'July', 8, 'Santa Monica, California, USA', '-'),
+  ('The Royal Tenenbaums', 2001, 'Ben Stiller', 1965, 'November', 30, 'New York City, New York, USA', 'Christine Taylor'),
+  ('The Life Aquatic with Steve Zissou', 2004, 'Bill Murray', 1950, 'September', 21, 'Evanston, Illinois, USA', 'Jennifer Butler'),
+  ('The Life Aquatic with Steve Zissou', 2004, 'Owen Wilson', 1968, 'November', 18, 'Dallas, Texas, USA', 'Varunie Vongsvirates'),
+  ('The Life Aquatic with Steve Zissou', 2004, 'Cate Blanchett', 1969, 'May', 14, 'Melbourne, Victoria, Australia', 'Andrew Upton'),
+  ('The Darjeeling Limited', 2007, 'Owen Wilson', 1968, 'November', 18, 'Dallas, Texas, USA', 'Varunie Vongsvirates'),
+  ('The Darjeeling Limited', 2007, 'Adrien Brody', 1973, 'April', 14, 'Queens, New York, USA', '-'),
+  ('The Darjeeling Limited', 2007, 'Jason Schwartzman', 1980, 'June', 26, 'Los Angeles, California, USA', 'Brady Cunningham'),
+  ('Fantastic Mr. Fox', 2009, 'George Clooney', 1961, 'May', 6, 'Lexington, Kentucky, USA', 'Amal Clooney'),
+  ('Fantastic Mr. Fox', 2009, 'Meryl Streep', 1949, 'June', 22, 'Summit, New Jersey, USA', 'Don Gummer'),
+  ('Fantastic Mr. Fox', 2009, 'Jason Schwartzman', 1980, 'June', 26, 'Los Angeles, California, USA', 'Brady Cunningham'),
+  ('Moonrise Kingdom', 2012, 'Jared Gilman', 1998, 'July', 28, 'South Salem, New York, USA', '-'),
+  ('Moonrise Kingdom', 2012, 'Kara Hayward', 1998, 'November', 17, 'Andover, Massachusetts, USA', '-'),
+  ('Moonrise Kingdom', 2012, 'Bruce Willis', 1955, 'March', 19, 'Idar-Oberstein, Germany', 'Emma Heming'),
+  ('The Grand Budapest Hotel', 2014, 'Ralph Fiennes', 1962, 'December', 22, 'Ipswich, Suffolk, England', '-'),
+  ('The Grand Budapest Hotel', 2014, 'Tony Revolori', 1996, 'April', 28, 'Anaheim, California, USA', '-'),
+  ('The Grand Budapest Hotel', 2014, 'F. Murray Abraham', 1939, 'October', 24, 'Pittsburgh, Pennsylvania, USA', 'Kate Hannan'),
+  ('Isle of Dogs', 2018, 'Bryan Cranston', 1956, 'March', 7, 'Hollywood, California, USA', 'Robin Dearden'),
+  ('Isle of Dogs', 2018, 'Edward Norton', 1969, 'August', 18, 'Boston, Massachusetts, USA', 'Shauna Robertson'),
+  ('Isle of Dogs', 2018, 'Bill Murray', 1950, 'September', 21, 'Evanston, Illinois, USA', 'Jennifer Butler'),
+  ('The French Dispatch', 2021, 'Benicio del Toro', 1967, 'February', 19, 'San Germán, Puerto Rico', 'Kimberly Stewart'),
+  ('The French Dispatch', 2021, 'Timothée Chalamet', 1995, 'December', 27, 'New York City, New York, USA', '-'),
+  ('The French Dispatch', 2021, 'Saoirse Ronan', 1994, 'April', 12, 'New York City, New York, USA', '-'
+);  
