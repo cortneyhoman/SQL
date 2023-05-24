@@ -1,11 +1,11 @@
 CREATE TABLE wes_anderson_actors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   movie_title TEXT,
-  movie_year INT,
+  movie_year INTEGER,
   talent_name TEXT,
-  birth_year INT,
+  birth_year INTEGER,
   birth_month TEXT,
-  birth_day INT,
+  birth_day INTEGER,
   birth_location TEXT,
   spouse_name TEXT
 );
