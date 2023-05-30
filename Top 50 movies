@@ -45,7 +45,7 @@ VALUES
     (36, 'Star Wars: The Rise of Skywalker', '$1,074,144,248', '2019'),
     (37, 'Toy Story 4', '$1,073,394,593', '2019'),
     (38, 'Toy Story 3', '$1,066,970,811', '2010'),
-    (39, 'Pirates of the Caribbean: Dead Man\'s Chest', '$1,066,179,747', '2006'),
+    (39, 'Pirates of the Caribbean: Dead Mans Chest', '$1,066,179,747', '2006'),
     (40, 'Rogue One: A Star Wars Story', '$1,057,420,387', '2016'),
     (41, 'Aladdin', '$1,050,693,953', '2019'),
     (42, 'Pirates of the Caribbean: On Stranger Tides', '$1,045,713,802', '2011'),
@@ -56,4 +56,4 @@ VALUES
     (47, 'Alice in Wonderland', '$1,025,468,216', '2010'),
     (48, 'Zootopia', '$1,023,784,195', '2016'),
     (49, 'The Hobbit: An Unexpected Journey', '$1,017,030,651', '2012'),
-    (50, 'Harry Potter and the Philosopher\'s Stone', '$1,009,046,830', '2001');
+    (50, 'Harry Potter and the Philosophers Stone', '$1,009,046,830', '2001');
