@@ -1,0 +1,110 @@
+/*Table data obtained from wikipedia.com*/
+/*Table contains the top 25 highest worldwide grossing movies of all time as of May 2023/
+CREATE TABLE Top25MoviesCurrent (
+    rank INTEGER PRIMARY KEY,
+    title TEXT,
+    gross TEXT,
+    year TEXT
+);
+
+INSERT INTO Top25MoviesCurrent (rank, title, gross, year)
+VALUES
+    (1, 'Avatar', '$2,923,706,026', '2009'),
+    (2, 'Avengers: Endgame', '$2,797,501,328', '2019'),
+    (3, 'Avatar: The Way of Water', '$2,320,250,281', '2022'),
+    (4, 'Titanic', '$2,257,844,554', '1997'),
+    (5, 'Star Wars: The Force Awakens', '$2,068,223,624', '2015'),
+    (6, 'Avengers: Infinity War', '$2,048,359,754', '2018'),
+    (7, 'Spider-Man: No Way Home', '$1,921,847,111', '2021'),
+    (8, 'Jurassic World', '$1,671,537,444', '2015'),
+    (9, 'The Lion King', '$1,656,943,394', '2019'),
+    (10, 'The Avengers', '$1,518,815,515', '2012'),
+    (11, 'Furious 7', '$1,515,341,399', '2015'),
+    (12, 'Top Gun: Maverick', '$1,493,491,858', '2022'),
+    (13, 'Frozen II', '$1,450,026,933', '2019'),
+    (14, 'Avengers: Age of Ultron', '$1,402,809,540', '2015'),
+    (15, 'Black Panther', '$1,347,280,838', '2018'),
+    (16, 'Harry Potter and the Deathly Hallows – Part 2', '$1,342,139,727', '2011'),
+    (17, 'Star Wars: The Last Jedi', '$1,332,539,889', '2017'),
+    (18, 'Jurassic World: Fallen Kingdom', '$1,308,473,425', '2018'),
+    (19, 'Frozen', '$1,290,000,000', '2013'),
+    (20, 'The Super Mario Bros. Movie', '$1,278,797,000', '2023'),
+    (21, 'Beauty and the Beast', '$1,263,521,126', '2017'),
+    (22, 'Incredibles 2', '$1,242,805,359', '2018'),
+    (23, 'The Fate of the Furious', '$1,238,764,765', '2017'),
+    (24, 'Iron Man 3', '$1,214,811,252', '2013'),
+    (25, 'Minions', '$1,159,444,662', '2015');
+        
+/*Table data obtained from boxofficemojo.com*/
+/*Table contains the top 25 highest worldwide grossing movies of all time, adjusted for inflation*/
+CREATE TABLE Top25MoviesAdj (
+  id INTEGER PRIMARY KEY,
+  title TEXT,
+  adjusted_lifetime_gross TEXT,
+  lifetime_gross TEXT,
+  estimated_num_tickets TEXT,
+  release_year TEXT
+);
+
+INSERT INTO Top25MoviesAdj (id, title, adjusted_lifetime_gross, lifetime_gross, estimated_num_tickets, release_year)
+VALUES
+  (1, 'Gone with the Wind', '$1,895,421,694', '$200,882,193', '202,286,200', '1939'),
+  (2, 'Star Wars: Episode IV - A New Hope', '$1,668,979,715', '$460,998,507', '178,119,500', '1977'),
+  (3, 'The Sound of Music', '$1,335,086,324', '$159,287,539', '142,485,200', '1965'),
+  (4, 'E.T. the Extra-Terrestrial', '$1,329,174,791', '$437,141,279', '141,854,300', '1982'),
+  (5, 'Titanic', '$1,270,101,626', '$674,292,608', '135,549,800', '1997'),
+  (6, 'The Ten Commandments', '$1,227,470,000', '$65,500,000', '131,000,000', '1956'),
+  (7, 'Jaws', '$1,200,856,389', '$265,859,065', '128,159,700', '1975'),
+  (8, 'Doctor Zhivago', '$1,163,149,635', '$111,721,910', '124,135,500', '1965'),
+  (9, 'The Exorcist', '$1,036,314,504', '$233,005,644', '110,599,200', '1973'),
+  (10, 'Snow White and the Seven Dwarfs', '$1,021,330,000', '$184,925,486', '109,000,000', '1937'),
+  (11, 'Star Wars: Episode VII - The Force Awakens', '$1,013,038,487', '$936,662,225', '108,115,100', '2015'),
+  (12, 'One Hundred and One Dalmatians', '$936,225,101', '$144,880,014', '99,917,300', '1961'),
+  (13, 'Star Wars: Episode V - The Empire Strikes Back', '$920,818,947', '$292,753,960', '98,273,100', '1980'),
+  (14, 'Ben-Hur', '$918,699,453', '$74,432,704', '98,046,900', '1959'),
+  (15, 'Avatar', '$911,790,952', '$785,221,649', '97,309,600', '2009'),
+  (16, 'Avengers: Endgame', '$892,669,593', '$858,373,000', '95,268,900', '2019'),
+  (17, 'Star Wars: Episode VI - Return of the Jedi', '$881,336,578', '$316,566,101', '94,059,400', '1983'),
+  (18, 'Jurassic Park', '$860,163,189', '$404,214,720', '91,799,700', '1993'),
+  (19, 'Star Wars: Episode I - The Phantom Menace', '$846,224,377', '$474,544,677', '90,312,100', '1999'),
+  (20, 'The Lion King', '$835,301,768', '$422,783,777', '89,146,400', '1994'),
+  (21, 'The Sting', '$835,268,973', '$156,000,000', '89,142,900', '1973'),
+  (22, 'Indiana Jones and the Raiders of the Lost Ark', '$829,651,658', '$248,159,971', '88,543,400', '1981'),
+  (23, 'The Graduate', '$801,854,616', '$104,945,305', '85,576,800', '1967'),
+  (24, 'Fantasia', '$778,117,595', '$76,408,097', '83,043,500', '1941'),
+  (25, 'The Godfather', '$739,503,825', '$136,381,073', '78,922,500', '1972');
+    
+/*Table contains the director(s) of the highest worldwide grossing movies of all time as of May 2023*/
+CREATE TABLE Top25Directors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    director1 TEXT,
+    director2 TEXT
+);
+
+INSERT INTO Top25Directors (director1, director2)
+VALUES
+('James Cameron', ''),
+('Anthony Russo', 'Joe Russo'),
+('James Cameron', ''),
+('James Cameron', ''),
+('J.J. Abrams', ''),
+('Anthony Russo', 'Joe Russo'),
+('Jon Watts', ''),
+('Colin Trevorrow', ''),
+('Jon Favreau', ''),
+('Joss Whedon', ''),
+('James Wan', ''),
+('Joseph Kosinski', ''),
+('Chris Buck', 'Jennifer Lee'),
+('Joss Whedon', ''),
+('Ryan Coogler', ''),
+('David Yates', ''),
+('Rian Johnson', ''),
+('J.A. Bayona', ''),
+('Chris Buck', 'Jennifer Lee'),
+('Aaron Horvath', 'Michael Jelenic'),
+('Bill Condon', ''),
+('Brad Bird', ''),
+('F. Gary Gray', ''),
+('Shane Black', ''),
+('Pierre Coffin', 'Kyle Balda');
