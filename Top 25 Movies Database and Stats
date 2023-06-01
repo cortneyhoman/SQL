@@ -1,7 +1,7 @@
 /*Currency in USD*/
 
 /*Table data obtained from wikipedia.com*/
-/*Table contains the top 25 highest worldwide grossing movies of all time as of May 2023*/
+/*Table contains the top 25 highest worldwide grossing movies of all time as of May 2023. Sequel values correspond to other titles in the table or are set to 0 if there is no sequel or the sequel is not also on the list*/
 CREATE TABLE Top25MoviesCurrent (
     rank INTEGER PRIMARY KEY,
     title TEXT,
