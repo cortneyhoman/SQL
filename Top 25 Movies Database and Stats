@@ -6,36 +6,37 @@ CREATE TABLE Top25MoviesCurrent (
     rank INTEGER PRIMARY KEY,
     title TEXT,
     gross INTEGER,
-    year TEXT
+    year TEXT,
+    sequel INTEGER
 );
 
-INSERT INTO Top25MoviesCurrent (rank, title, gross, year)
+INSERT INTO Top25MoviesCurrent (rank, title, gross, year, sequel)
 VALUES
-    (1, 'Avatar', 2923706026, '2009'),
-    (2, 'Avengers: Endgame', 2797501328, '2019'),
-    (3, 'Avatar: The Way of Water', 2220250281, '2022'),
-    (4, 'Titanic', 2257844554, '1997'),
-    (5, 'Star Wars: The Force Awakens', 2068223624, '2015'),
-    (6, 'Avengers: Infinity War', 2048359754, '2018'),
-    (7, 'Spider-Man: No Way Home', 1921847111, '2021'),
-    (8, 'Jurassic World', 1671537444, '2015'),
-    (9, 'The Lion King', 1656943394, '2019'),
-    (10, 'The Avengers', 1518815515, '2012'),
-    (11, 'Furious 7', 1515341399, '2015'),
-    (12, 'Top Gun: Maverick', 1493491858, '2022'),
-    (13, 'Frozen II', 1450026933, '2019'),
-    (14, 'Avengers: Age of Ultron', 1402809540, '2015'),
-    (15, 'Black Panther', 1347280838, '2018'),
-    (16, 'Harry Potter and the Deathly Hallows – Part 2', 1342139727, '2011'),
-    (17, 'Star Wars: The Last Jedi', 1332539889, '2017'),
-    (18, 'Jurassic World: Fallen Kingdom', 1308473425, '2018'),
-    (19, 'Frozen', 1290000000, '2013'),
-    (20, 'The Super Mario Bros. Movie', 1278797000, '2023'),
-    (21, 'Beauty and the Beast', 1263521126, '2017'),
-    (22, 'Incredibles 2', 1242805359, '2018'),
-    (23, 'The Fate of the Furious', 1238764765, '2017'),
-    (24, 'Iron Man 3', 1214811252, '2013'),
-    (25, 'Minions', 1159444662, '2015');
+    (1, 'Avatar', 2923706026, '2009', 3),
+    (2, 'Avengers: Endgame', 2797501328, '2019', 0),
+    (3, 'Avatar: The Way of Water', 2220250281, '2022', 0),
+    (4, 'Titanic', 2257844554, '1997', 0),
+    (5, 'Star Wars: The Force Awakens', 2068223624, '2015', 17),
+    (6, 'Avengers: Infinity War', 2048359754, '2018', 2),
+    (7, 'Spider-Man: No Way Home', 1921847111, '2021', 0),
+    (8, 'Jurassic World', 1671537444, '2015', 18),
+    (9, 'The Lion King', 1656943394, '2019', 0),
+    (10, 'The Avengers', 1518815515, '2012', 14),
+    (11, 'Furious 7', 1515341399, '2015', 23),
+    (12, 'Top Gun: Maverick', 1493491858, '2022', 0),
+    (13, 'Frozen II', 1450026933, '2019', 0),
+    (14, 'Avengers: Age of Ultron', 1402809540, '2015', 6),
+    (15, 'Black Panther', 1347280838, '2018', 0),
+    (16, 'Harry Potter and the Deathly Hallows – Part 2', 1342139727, '2011', 0),
+    (17, 'Star Wars: The Last Jedi', 1332539889, '2017', 0),
+    (18, 'Jurassic World: Fallen Kingdom', 1308473425, '2018', 0),
+    (19, 'Frozen', 1290000000, '2013', 0),
+    (20, 'The Super Mario Bros. Movie', 1278797000, '2023', 0),
+    (21, 'Beauty and the Beast', 1263521126, '2017', 0),
+    (22, 'Incredibles 2', 1242805359, '2018', 0),
+    (23, 'The Fate of the Furious', 1238764765, '2017', 0),
+    (24, 'Iron Man 3', 1214811252, '2013', 0),
+    (25, 'Minions', 1159444662, '2015', 0);
 
 /*Table data obtained from boxofficemojo.com*/
 /*Table contains the top 25 highest worldwide grossing movies of all time, adjusted for inflation*/
@@ -111,23 +112,38 @@ VALUES
 ('Shane Black', ''),
 ('Pierre Coffin', 'Kyle Balda');
 
-/*Create a table listing top 25 movies and their directors*/
+/*List top 25 movies and their directors*/
 SELECT t25m.rank, t25m.title, t25d.director1, t25d.director2
 FROM Top25MoviesCurrent t25m
 LEFT JOIN Top25Directors t25d
 ON t25m.rank=t25d.id;
 
-/*Create a table showing only the movies from the top 25 current list that are also on the top 25 adjusted for inflation list*/
+/*Show only the movies from the top 25 current list that are also on the top 25 adjusted for inflation list*/
 SELECT t25m.title
 FROM Top25MoviesCurrent t25m
 JOIN Top25MoviesAdj t25a
 ON t25m.title=t25a.title
 WHERE t25m.year=t25a.release_year;
 
-/*Create a table listing directors in order of how many total top 25 movies they've directed*/
+/*List directors in order of how many total top 25 movies they've directed*/
 SELECT COUNT(t25d.director1) total_directed, t25d.director1, t25d.director2
 FROM Top25MoviesCurrent t25m
 JOIN Top25Directors t25d
 ON t25m.rank=t25d.id
 GROUP BY t25d.director1
 ORDER BY total_directed DESC;
+
+/*Show the total gross per director in the top 25 list, but only if their total gross differs from that of a single film*/
+SELECT SUM(t25m1.gross) total_gross, t25d.director1, t25d.director2
+FROM Top25MoviesCurrent t25m1
+JOIN Top25Directors t25d
+ON t25m1.rank=t25d.id
+GROUP BY t25d.director1
+HAVING total_gross > t25m1.gross 
+ORDER BY total_gross DESC;
+
+/*Display the top 25 list film titles alongside the titles of their sequels if the sequel is also in the top 25 list*/
+SELECT t25m1.title movie_title, t25m2.title sequel_title
+FROM Top25MoviesCurrent t25m1
+LEFT JOIN Top25MoviesCurrent t25m2
+ON t25m1.sequel=t25m2.rank;
