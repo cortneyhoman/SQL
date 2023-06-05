@@ -1,0 +1,35 @@
+/*This code queries a PostgreSQL database containing tables which summarize Netflix show data.*/
+
+/*Join the "netflix_people" and "netflix_titles_info" tables within the NetflixData database.*/
+SELECT np.show_id, nt.title, np.director, nt.rating
+FROM "NetflixData"."netflix_people" np
+LEFT JOIN "NetflixData"."netflix_titles_info" nt
+ON np.show_id=nt.show_id;
+
+/*How many movies are in the database?*/
+SELECT COUNT(*)
+FROM "NetflixData"."netflix_titles_info"
+WHERE type='Movie';
+
+/*When was the most recent batch of content added to the database?*/
+SELECT MAX(date_added)
+FROM "NetflixData"."netflix_titles_info";
+
+/*List items in alphabetical order based on title.*/
+SELECT title
+FROM "NetflixData"."netflix_titles_info"
+ORDER BY title ASC;
+
+/*Who directed the movie "Bright Star?"*/
+SELECT np.director
+FROM "NetflixData"."netflix_people" np
+LEFT JOIN "NetflixData"."netflix_titles_info" nt
+ON np.show_id=nt.show_id
+WHERE nt.title='Bright Star';
+
+/*What is the title of the oldest movie in the database and what is it called?*/
+SELECT title, release_year
+FROM "NetflixData"."netflix_titles_info"
+WHERE type = 'Movie'
+ORDER BY release_year ASC
+LIMIT 1;
