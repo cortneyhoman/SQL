@@ -1,16 +1,25 @@
 /*The following code queries a database containing sales records for an online store.*/
 
-
 /*How many orders were placed in January?*/
 SELECT COUNT(*)
 FROM BIT_DB.JanSales
 WHERE length(orderid) = 6
-AND orderid <> 'Order ID'
+AND orderid <> 'Order ID';
 
 /*How many of the orders placed in January were for an iPhone?*/
 SELECT COUNT(*)
 FROM BIT_DB.JanSales
 WHERE length(orderID) = 6
 AND orderID <> 'Order ID'
-AND Product = 'iPhone'
+AND Product = 'iPhone';
 
+/*Select the customer account numbers for all the orders that were placed in February.*/
+SELECT distinct c.acctnum
+FROM BIT_DB.customers as c
+INNER JOIN BIT_DB.FebSales as fs
+ON c.order_id = fs.orderID
+WHERE LENGTH(c.order_id) = 6
+AND c.order_id <> 'Order ID';
+
+/*Which product was the cheapest one sold in January, and what was the price?*/
+SELECT distinct MIN(price), Product FROM BIT_DB.JanSales
