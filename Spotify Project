@@ -1,0 +1,16 @@
+/*This code queries a database containing stats on the top 50 most listened songs in the world on Spotify in 2021.*/
+/*Data from https://www.kaggle.com/datasets/equinxx/spotify-top-50-songs-in-2021*/
+
+/*Which artist had the highest number of songs on the top 50 list?*/
+SELECT COUNT(artist_name) as total, artist_name
+FROM BIT_DB.SpotifyData
+GROUP BY artist_name
+ORDER BY total DESC
+LIMIT 1;
+
+/*What is the average danceability for the top 5 most popular songs?*/
+SELECT AVG(danceability) FROM BIT_DB.SpotifyData
+WHERE popularity IN 
+(SELECT popularity FROM BIT_DB.SpotifyData
+ORDER BY popularity DESC
+LIMIT 5);
