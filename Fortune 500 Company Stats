@@ -1,4 +1,4 @@
---Database is at the bottom.
+--Data table is located at the bottom of this file.
 
 --SQL Queries
 -- Which companies offer healthcare benefits as well as at least 20 PTO days or 8 weeks of maternity leave?
@@ -46,7 +46,7 @@ WHERE healthcare_benefits=1
 ORDER BY employees
 LIMIT 1;
 
--- Database
+-- Data Table
 CREATE TABLE fortune_companies (
     company_id INTEGER PRIMARY KEY,
     company_name TEXT,
