@@ -1,0 +1,61 @@
+-- What is the average danceability by artist?
+SELECT artist_name, ROUND(AVG(danceability), 3) as avgDanceability
+FROM bit_db.SpotifyData
+GROUP BY artist_name;
+
+-- Who are the top 10 artists based on popularity?
+SELECT DISTINCT artist_name
+FROM bit_db.SpotifyData
+ORDER BY popularity DESC
+LIMIT 10;
+
+-- What artist released the longest song?
+SELECT artist_name
+FROM bit_db.SpotifyData
+ORDER BY duration_ms DESC
+LIMIT 1;
+
+-- What's the average danceability for the 10 most popular songs?
+SELECT AVG(danceability) as avgDanceability
+FROM bit_db.SpotifyData
+WHERE track_name IN(
+SELECT track_name
+FROM bit_db.SpotifyData
+ORDER BY popularity DESC
+LIMIT 10);
+
+-- What's the min, max, and range of popularity for each artist that appears on the chart more than once?
+SELECT artist_name, MIN(popularity), MAX(popularity), MAX(popularity)-MIN(popularity) AS popRange
+FROM bit_db.SpotifyData
+GROUP BY artist_name
+HAVING COUNT(artist_name) >= 2
+ORDER BY popRange;
+
+-- Classify songs based on energy and tempo, then list only fast tempo and high energy songs.
+SELECT artist_name, track_name,
+CASE
+    WHEN energy > 0.75 THEN 'High Energy'
+    WHEN energy > 0.55 THEN 'Mid Energy'
+    WHEN energy > 0.35 THEN 'Low Energy'
+    ELSE 'No Energy'
+END AS 'energyRating',
+CASE 
+    WHEN tempo > 145 THEN 'Fast'
+    WHEN tempo > 100 THEN 'Medium'
+    WHEN tempo > 80 THEN 'Medium Slow'
+    ELSE 'Slow'
+END AS 'tempoRating'
+FROM bit_db.SpotifyData
+WHERE energyRating = 'High Energy'
+AND tempoRating = 'Fast';
+
+-- Which of the top 5 most popular songs is the loudest?
+SELECT track_name
+FROM bit_db.SpotifyData
+WHERE track_name IN(
+SELECT track_name
+FROM bit_db.SpotifyData
+ORDER BY popularity DESC
+LIMIT 5)
+ORDER BY loudness DESC
+LIMIT 1;
