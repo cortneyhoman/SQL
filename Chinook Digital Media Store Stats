@@ -1,0 +1,56 @@
+-- What was the average amount invoiced per country in 2010, rounded to the nearest dollar?
+SELECT BillingCountry, ROUND(SUM(Total),0) from chinook.invoices
+WHERE InvoiceDate LIKE '%2010%'
+GROUP BY BillingCountry;
+
+-- List the artist, title, and total quantity sold for the top 5 most purchased tracks.
+SELECT tr.Name, ar.Name, SUM(Quantity) as totalSold
+FROM chinook.tracks tr
+JOIN chinook.albums al
+ON tr.AlbumId=al.AlbumId
+JOIN chinook.artists ar
+ON al.ArtistId=ar.ArtistId
+JOIN chinook.invoice_items ii
+ON tr.TrackId=ii.TrackId
+GROUP BY tr.Name
+ORDER BY totalSold DESC
+LIMIT 5;
+
+-- Which customer support rep is assigned to the fewest number of customer accounts?
+WITH repTotals AS (
+SELECT c.SupportRepId, e.FirstName, e.LastName, COUNT(c.SupportRepId) AS repTotal
+FROM customers c
+JOIN employees e
+ON c.SupportRepId=e.EmployeeId
+GROUP BY c.SupportRepId)
+
+SELECT SupportRepId, FirstName, LastName, MIN(repTotal) as "totalAssignedAccounts"
+FROM repTotals;
+
+-- Show the full name, customer ID, and country for all customers who are not in the US.
+SELECT CustomerId, FirstName, LastName, Country
+FROM chinook.customers
+WHERE Country <> 'USA';
+
+-- Show the full name and customer ID for all customers who are from Brazil.
+SELECT CustomerId, FirstName, LastName, Country
+FROM chinook.customers
+WHERE Country = 'Brazil';
+
+-- Find the invoices of customers who are from Brazil. The resulting table should show the customer's full name, invoice ID, invoice date, and billing country.
+SELECT FirstName, LastName, InvoiceId, InvoiceDate, BillingCountry
+FROM chinook.customers c
+JOIN chinook.invoices i
+ON c.CustomerId=i.CustomerId
+WHERE c.Country = 'Brazil';
+
+-- Show the employees who are sales agents.
+SELECT FirstName, LastName, Title
+FROM chinook.employees
+WHERE Title LIKE '%Agent%';
+
+-- Find a unique/distinct list of billing countries from the invoice table.
+SELECT DISTINCT BillingCountry
+FROM chinook.invoices;
+
+-- Provide a query that shows the invoices associated with each sales agent. The resulting table should include the sales agent's full name.
