@@ -1,5 +1,6 @@
 -- What was the average amount invoiced per country in 2010, rounded to the nearest dollar?
-SELECT BillingCountry, ROUND(SUM(Total),0) from chinook.invoices
+SELECT BillingCountry, ROUND(AVG(Total),0) as avgInvoiced
+FROM chinook.invoices
 WHERE InvoiceDate LIKE '%2010%'
 GROUP BY BillingCountry;
 
@@ -53,4 +54,66 @@ WHERE Title LIKE '%Agent%';
 SELECT DISTINCT BillingCountry
 FROM chinook.invoices;
 
--- Provide a query that shows the invoices associated with each sales agent. The resulting table should include the sales agent's full name.
+-- Provide a query that shows the invoices associated with each sales agent. The resulting table should include the invoice ID and sales agent's full name.
+SELECT i.InvoiceId, e.FirstName, e.LastName
+FROM chinook.invoices i
+JOIN chinook.customers c
+ON i.CustomerId=c.CustomerId
+JOIN chinook.employees e
+ON c.SupportRepId=e.EmployeeId;
+
+-- Show the invoice total, customer name, country, and sales agent name for all invoices and customers.
+SELECT i.Total, c.FirstName as custFirst, c.LastName as custLast, c.Country, e.FirstName as salesRepFirst, e.LastName as salesRepLast
+FROM chinook.invoices i
+JOIN chinook.customers c
+ON i.CustomerId=c.CustomerId
+JOIN chinook.employees e
+ON c.SupportRepId=e.EmployeeId;
+
+-- How many Invoices were there in 2009?
+SELECT COUNT(*)
+FROM chinook.invoices
+WHERE InvoiceDate LIKE '%2009%';
+
+-- What are the total sales for 2009?
+SELECT SUM(Total)
+FROM chinook.invoices
+WHERE InvoiceDate LIKE '%2009%';
+
+-- Show the purchased track name with each invoice ID and invoice line ID.
+SELECT t.Name, ii.InvoiceId, ii.InvoiceLineID
+FROM chinook.tracks t
+JOIN chinook.invoice_items ii
+ON t.TrackId=ii.TrackId;
+
+-- Show the purchased track name AND artist name with each invoice ID and invoice line ID.
+SELECT t.Name as trackName, ar.Name as artistName, ii.InvoiceId, ii.InvoiceLineID
+FROM chinook.tracks t
+JOIN chinook.invoice_items ii
+ON t.TrackId=ii.TrackId
+JOIN chinook.albums a 
+ON t.AlbumId=a.AlbumId
+JOIN chinook.artists ar
+ON a.ArtistId=ar.ArtistId;
+
+-- Show all tracks with album name, media type, and genre.
+SELECT t.Name as trackTitle, a.Title as albumTitle, m.Name as mediaType, g.Name as Genre
+FROM chinook.tracks t
+JOIN chinook.albums a
+ON t.AlbumId=a.AlbumId
+JOIN chinook.media_types m
+ON t.MediaTypeId=m.MediaTypeId
+JOIN chinook.genres g
+ON t.GenreId=g.GenreId;
+
+-- Show the total sales made by each sales agent.
+SELECT ROUND(SUM(i.Total),2) as totalSales, e.FirstName, e.LastName
+FROM chinook.invoices i
+JOIN chinook.customers c
+ON i.CustomerId=c.CustomerId
+JOIN chinook.employees e
+ON c.SupportRepId=e.EmployeeId
+WHERE e.Title LIKE '%Agent%'
+GROUP BY e.LastName;
+
+-- Which sales agent made the most dollars in sales in 2009 and what was their total sales number?
