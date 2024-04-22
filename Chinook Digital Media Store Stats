@@ -116,4 +116,16 @@ ON c.SupportRepId=e.EmployeeId
 WHERE e.Title LIKE '%Agent%'
 GROUP BY e.LastName;
 
--- Which sales agent made the most dollars in sales in 2009 and what was their total sales number?
+-- Which sales agent made the most dollars in sales in 2009 and what was their sales total?
+WITH tempSales AS (
+SELECT e.FirstName as agentFirst, e.LastName as agentLast, SUM(Total) as totalSales
+FROM invoices i
+JOIN customers c
+ON i.CustomerId=c.CustomerId
+JOIN employees e
+ON c.SupportRepId=e.EmployeeId
+WHERE InvoiceDate LIKE '%2009%'
+GROUP BY e.LastName)
+
+SELECT agentFirst, agentLast, ROUND(MAX(totalSales),2) as totalSales
+FROM tempSales;
