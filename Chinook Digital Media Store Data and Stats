@@ -20,6 +20,29 @@ GROUP BY tr.Name
 ORDER BY totalSold DESC
 LIMIT 5;
 
+-- Sales agents at the digital media store earn a 20% commission on sales of rock, blues, and pop songs. How much has each agent earned?
+WITH compTable AS
+(SELECT e.LastName, e.FirstName, t.Name, g.Name, t.UnitPrice 
+,CASE
+    WHEN g.Name IN ('Rock', 'Blues', 'Pop') THEN ROUND((t.UnitPrice*0.2),2)
+    ELSE NULL
+    END AS totalComp
+FROM employees e
+JOIN customers c
+ON e.EmployeeId=c.SupportRepId
+JOIN invoices i
+ON c.CustomerId=i.CustomerId
+JOIN invoice_items ii
+ON i.InvoiceId=ii.InvoiceId
+JOIN tracks t
+ON ii.TrackId=t.TrackId
+JOIN genres g
+ON t.GenreId=g.GenreId)
+
+SELECT FirstName, LastName, ROUND(SUM(totalComp),2) as commissionTotal
+FROM compTable
+GROUP BY LastName;
+
 -- Which customer support rep is assigned to the fewest number of customer accounts?
 WITH repTotals AS (
 SELECT c.SupportRepId, e.FirstName, e.LastName, COUNT(c.SupportRepId) AS repTotal
