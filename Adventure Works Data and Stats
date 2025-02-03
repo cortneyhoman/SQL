@@ -1,0 +1,35 @@
+--Queries based on Microsoft's Adventure Works data set for SQLiteStudio @ https://github.com/nuitsjp/AdventureWorks-for-SQLite
+
+--SQL Queries
+-- Return total number of items sold per color for each item classified as a bike, sorted from most to least popular color.
+SELECT p.Color, SUM(sod.OrderQty) as TotalSales
+FROM ProductCategory pc
+JOIN Product p
+ON pc.ProductCategoryID = p.ProductCategoryID
+JOIN SalesOrderDetail sod
+ON p.ProductID = sod.ProductID
+WHERE pc.ParentProductCategoryID = '1'
+AND p.Color IS NOT NULL AND p.Color <> ''
+GROUP BY p.Color
+ORDER BY TotalSales DESC;
+
+-- Identify all customers who have received any discount on any order and list their average percent discount.
+SELECT c.FirstName, c.LastName, ROUND(AVG(sod.UnitPriceDiscount),2)*100 as AvgDiscountPercent
+FROM Customer c
+JOIN SalesOrderHeader soh
+ON c.CustomerID = soh.CustomerID
+JOIN SalesOrderDetail sod
+ON soh.SalesOrderID = sod.SalesOrderID
+WHERE sod.UnitPriceDiscount > 0
+GROUP BY LastName, FirstName;
+
+-- Identify the top 5 customers who have purchased the greatest number of unique items.
+SELECT c.FirstName, c.LastName, COUNT(DISTINCT sod.ProductID) as UniqueProducts
+FROM Customer c
+JOIN SalesOrderHeader soh
+ON c.CustomerID = soh.CustomerID 
+JOIN SalesOrderDetail sod
+ON soh.SalesOrderID = sod.SalesOrderID
+GROUP BY c.LastName, c.FirstName
+ORDER BY UniqueProducts DESC
+LIMIT 5;
