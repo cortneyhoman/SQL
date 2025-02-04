@@ -33,3 +33,75 @@ ON soh.SalesOrderID = sod.SalesOrderID
 GROUP BY c.LastName, c.FirstName
 ORDER BY UniqueProducts DESC
 LIMIT 5;
+
+-- Classify each customer location as a US region or International and count the total number of each.
+SELECT
+CASE 
+    WHEN
+        a.StateProvince = 'Washington' OR 
+        a.StateProvince = 'Oregon' OR      
+        a.StateProvince = 'California' OR
+        a.StateProvince = 'Nevada' OR
+        a.StateProvince = 'Idaho' OR
+        a.StateProvince = 'Montana' OR
+        a.StateProvince = 'Wyoming' OR
+        a.StateProvince = 'Utah' OR
+        a.StateProvince = 'Colorado'
+        THEN 'West'
+    WHEN
+        a.StateProvince = 'Arizona' OR
+        a.StateProvince = 'New Mexico' OR
+        a.StateProvince = 'Texas' OR
+        a.StateProvince = 'Oklahoma'
+        THEN 'Southwest'
+    WHEN
+        a.StateProvince = 'Kansas' OR
+        a.StateProvince = 'Nebraska' OR
+        a.StateProvince = 'South Dakota' OR
+        a.StateProvince = 'North Dakota' OR
+        a.StateProvince = 'Minnesota' OR
+        a.StateProvince = 'Iowa' OR
+        a.StateProvince = 'Missouri' OR
+        a.StateProvince = 'Wisconsin' OR
+        a.StateProvince = 'Illinois' OR
+        a.StateProvince = 'Indiana' OR
+        a.StateProvince = 'Michigan' OR
+        a.StateProvince = 'Ohio'
+        THEN 'Midwest'
+    WHEN
+        a.StateProvince = 'Arkansas' OR
+        a.StateProvince = 'Louisiana' OR
+        a.StateProvince = 'Mississippi' OR
+        a.StateProvince = 'Alabama' OR
+        a.StateProvince = 'Tennessee' OR
+        a.StateProvince = 'Kentucky' OR
+        a.StateProvince = 'Georgia' OR
+        a.StateProvince = 'Florida' OR
+        a.StateProvince = 'South Carolina' OR
+        a.StateProvince = 'North Carolina' OR
+        a.StateProvince = 'Virginia' OR
+        a.StateProvince = 'West Virginia' 
+        THEN 'Southeast'
+    WHEN
+        a.StateProvince = 'Pennsylvania' OR
+        a.StateProvince = 'New York' OR
+        a.StateProvince = 'Vermont' OR
+        a.StateProvince = 'Maine' OR
+        a.StateProvince = 'New Hampshire' OR
+        a.StateProvince = 'Massachusetts' OR
+        a.StateProvince = 'Connecticut' OR
+        a.StateProvince = 'Rhode Island' OR
+        a.StateProvince = 'New Jersey' OR
+        a.StateProvince = 'Delaware' OR
+        a.StateProvince = 'Maryland' OR
+        a.StateProvince = 'Washington DC'
+        THEN 'Northeast'
+    ELSE 'International'
+END 'Region', COUNT(*) as totalAccounts
+FROM Customer c
+JOIN CustomerAddress ca
+ON c.CustomerID = ca.CustomerID
+JOIN Address a
+ON ca.AddressID = a.AddressID
+GROUP BY Region
+ORDER BY totalAccounts DESC;
